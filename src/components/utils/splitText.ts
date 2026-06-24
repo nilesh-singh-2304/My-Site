@@ -5,7 +5,8 @@ import { SplitText } from "gsap-trial/SplitText";
 
 interface ParaElement extends HTMLElement {
   anim?: gsap.core.Animation;
-  split?: SplitText;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  split?: any;
 }
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, SplitText);
