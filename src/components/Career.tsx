@@ -1,32 +1,9 @@
-import { useEffect, useState } from "react";
 import "./styles/Career.css";
+import { useSiteData } from "../context/SiteDataContext";
 
 const Career = () => {
+  const { career } = useSiteData();
 
-  const [experience, setExperience] = useState<any[]>([]);
-  const [_loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchExperience = async () => {
-      try {
-        const res = await fetch(
-          "https://opensheet.elk.sh/1WJ7wGz5YQkrgIfMzo15qLngTCEl5ZHOO5YdEty9p_PM/career"
-        );
-
-        const data = await res.json();
-        setExperience(data);
-      } catch (error) {
-        console.error("Failed to fetch experience:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchExperience();
-  }, []);
-
-  console.log("Experience is : " , experience);
-  
   return (
     <div className="career-section section-container">
       <div className="career-container">
@@ -40,7 +17,7 @@ const Career = () => {
             <div className="career-dot"></div>
           </div>
 
-          {experience.map((exp, index) => (
+          {career.map((exp, index) => (
             <div className="career-info-box" key={index}>
               <div className="career-info-in">
                 <div className="career-role">
@@ -49,7 +26,6 @@ const Career = () => {
                 </div>
                 <h3>{exp.year}</h3>
               </div>
-
               <p>{exp.description}</p>
             </div>
           ))}
