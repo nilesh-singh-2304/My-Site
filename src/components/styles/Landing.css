@@ -356,3 +356,22 @@ h2.landing-info-h2 {
     font-size: 75px;
   }
 }
+
+.landing-socials {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+  align-items: center;
+}
+.landing-socials a {
+  color: var(--accentColor);
+  font-size: 20px;
+  opacity: 0.7;
+  transition: opacity 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+}
+.landing-socials a:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}

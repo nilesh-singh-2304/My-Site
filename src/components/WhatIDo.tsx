@@ -1,16 +1,16 @@
 import { useEffect, useRef } from "react";
 import "./styles/WhatIDo.css";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useSiteData } from "../context/SiteDataContext";
+import { useSiteData, WhatData } from "../context/SiteDataContext";
 
-const FALLBACK = [
+const FALLBACK: WhatData[] = [
   { title: "FRONTEND", description: "Creating scalable and engaging interfaces that blend performance with usability.", skills: "JavaScript,React.js,Next.js,Tailwind,Zustand,Tanstack,Responsive-UI,Figma", author: "" },
   { title: "BACKEND",  description: "Designing secure, scalable, and efficient systems that power modern applications.", skills: "Node.js,Express.js,MongoDB,SQL,JWT,RBAC,Postman,SpringBoot,REST Apis", author: "" },
 ];
 
 const WhatIDo = () => {
-  const { what, loading } = useSiteData();
-  const list = !loading && what.length > 0 ? what : FALLBACK;
+  const { what } = useSiteData();
+  const list = what.length > 0 ? what : FALLBACK;
 
   const containerRef = useRef<(HTMLDivElement | null)[]>([]);
   const setRef = (el: HTMLDivElement | null, index: number) => {

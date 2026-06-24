@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 import "./styles/Loading.css";
 import { useLoading } from "../context/LoadingProvider";
-
+import { useSiteData } from "../context/SiteDataContext";
 import Marquee from "react-fast-marquee";
 
 const Loading = ({ percent }: { percent: number }) => {
   const { setIsLoading } = useLoading();
+  const { landing } = useSiteData();
   const [loaded, setLoaded] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [clicked, setClicked] = useState(false);
+
+  const logoName = landing?.name ?? "Logo";
+  const marqueeText1 = `A Creative ${landing?.word1 ?? "Developer"}`;
+  const marqueeText2 = `A Creative ${landing?.word2 ?? "Designer"}`;
 
   if (percent >= 100) {
     setTimeout(() => {
@@ -46,7 +51,7 @@ const Loading = ({ percent }: { percent: number }) => {
     <>
       <div className="loading-header">
         <a href="/#" className="loader-title" data-cursor="disable">
-          Logo
+          {logoName}
         </a>
         <div className={`loaderGame ${clicked && "loader-out"}`}>
           <div className="loaderGame-container">
@@ -62,8 +67,8 @@ const Loading = ({ percent }: { percent: number }) => {
       <div className="loading-screen">
         <div className="loading-marquee">
           <Marquee>
-            <span> A Creative Developer</span> <span>A Creative Designer</span>
-            <span> A Creative Developer</span> <span>A Creative Designer</span>
+            <span> {marqueeText1}</span> <span>{marqueeText2}</span>
+            <span> {marqueeText1}</span> <span>{marqueeText2}</span>
           </Marquee>
         </div>
         <div

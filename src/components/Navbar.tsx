@@ -4,11 +4,16 @@ import HoverLinks from "./HoverLinks";
 import { gsap } from "gsap";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import "./styles/Navbar.css";
+import { useSiteData } from "../context/SiteDataContext";
 
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 export let smoother: ScrollSmoother;
 
 const Navbar = () => {
+  const { landing } = useSiteData();
+  const navName = landing?.name ?? "NILESH SINGH";
+  const navEmail = landing?.email ?? "nileshsingh82004@gmail.com";
+
   useEffect(() => {
     smoother = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
@@ -43,14 +48,14 @@ const Navbar = () => {
     <>
       <div className="header">
         <a href="/#" className="navbar-title" data-cursor="disable">
-          NILESH SINGH
+          {navName}
         </a>
         <a
-          href="mailto:example@mail.com"
+          href={`mailto:${navEmail}`}
           className="navbar-connect"
           data-cursor="disable"
         >
-          nileshsingh82004@gmail.com
+          {navEmail}
         </a>
         <ul>
           <li>
