@@ -1,12 +1,22 @@
 import { useEffect, useRef } from "react";
 import "./styles/WhatIDo.css";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useSiteData } from "../context/SiteDataContext";
+
+const FALLBACK = [
+  { title: "FRONTEND", description: "Creating scalable and engaging interfaces that blend performance with usability.", skills: "JavaScript,React.js,Next.js,Tailwind,Zustand,Tanstack,Responsive-UI,Figma", author: "" },
+  { title: "BACKEND",  description: "Designing secure, scalable, and efficient systems that power modern applications.", skills: "Node.js,Express.js,MongoDB,SQL,JWT,RBAC,Postman,SpringBoot,REST Apis", author: "" },
+];
 
 const WhatIDo = () => {
+  const { what, loading } = useSiteData();
+  const list = !loading && what.length > 0 ? what : FALLBACK;
+
   const containerRef = useRef<(HTMLDivElement | null)[]>([]);
   const setRef = (el: HTMLDivElement | null, index: number) => {
     containerRef.current[index] = el;
   };
+
   useEffect(() => {
     if (ScrollTrigger.isTouch) {
       containerRef.current.forEach((container) => {
@@ -18,135 +28,52 @@ const WhatIDo = () => {
     }
     return () => {
       containerRef.current.forEach((container) => {
-        if (container) {
-          container.removeEventListener("click", () => handleClick(container));
-        }
+        if (container) container.removeEventListener("click", () => handleClick(container));
       });
     };
-  }, []);
+  }, [list]);
+
   return (
     <div className="whatIDO">
       <div className="what-box">
         <h2 className="title">
           W<span className="hat-h2">HAT</span>
-          <div>
-            I<span className="do-h2"> DO</span>
-          </div>
+          <div>I<span className="do-h2"> DO</span></div>
         </h2>
       </div>
       <div className="what-box">
         <div className="what-box-in">
           <div className="what-border2">
             <svg width="100%">
-              <line
-                x1="0"
-                y1="0"
-                x2="0"
-                y2="100%"
-                stroke="white"
-                strokeWidth="2"
-                strokeDasharray="7,7"
-              />
-              <line
-                x1="100%"
-                y1="0"
-                x2="100%"
-                y2="100%"
-                stroke="white"
-                strokeWidth="2"
-                strokeDasharray="7,7"
-              />
+              <line x1="0" y1="0" x2="0" y2="100%" stroke="white" strokeWidth="2" strokeDasharray="7,7" />
+              <line x1="100%" y1="0" x2="100%" y2="100%" stroke="white" strokeWidth="2" strokeDasharray="7,7" />
             </svg>
           </div>
-          <div
-            className="what-content what-noTouch"
-            ref={(el) => setRef(el, 0)}
-          >
-            <div className="what-border1">
-              <svg height="100%">
-                <line
-                  x1="0"
-                  y1="0"
-                  x2="100%"
-                  y2="0"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeDasharray="6,6"
-                />
-                <line
-                  x1="0"
-                  y1="100%"
-                  x2="100%"
-                  y2="100%"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeDasharray="6,6"
-                />
-              </svg>
-            </div>
-            <div className="what-corner"></div>
-
-            <div className="what-content-in">
-              <h3>FRONTEND</h3>
-              <h4>Description</h4>
-              <p>
-                Creating scalable and engaging interfaces that blend performance with usability.
-              </p>
-              <h5>Skillset & tools</h5>
-              <div className="what-content-flex">
-                <div className="what-tags">JavaScript</div>
-                <div className="what-tags">React.js</div>
-                <div className="what-tags">Next.js</div>
-                <div className="what-tags">Tailwind</div>
-                <div className="what-tags">Zustand</div>
-                <div className="what-tags">Tanstack</div>
-                <div className="what-tags">Responsive-UI</div>
-                <div className="what-tags">Figma</div>
-                {/* <div className="what-tags">PHP</div> */}
-                {/* <div className="what-tags">MySql</div> */}
+          {list.map((item, i) => (
+            <div key={i} className="what-content what-noTouch" ref={(el) => setRef(el, i)}>
+              <div className="what-border1">
+                <svg height="100%">
+                  <line x1="0" y1="0" x2="100%" y2="0" stroke="white" strokeWidth="2" strokeDasharray="6,6" />
+                  {i === list.length - 1 && (
+                    <line x1="0" y1="100%" x2="100%" y2="100%" stroke="white" strokeWidth="2" strokeDasharray="6,6" />
+                  )}
+                </svg>
               </div>
-              <div className="what-arrow"></div>
-            </div>
-          </div>
-          <div
-            className="what-content what-noTouch"
-            ref={(el) => setRef(el, 1)}
-          >
-            <div className="what-border1">
-              <svg height="100%">
-                <line
-                  x1="0"
-                  y1="100%"
-                  x2="100%"
-                  y2="100%"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeDasharray="6,6"
-                />
-              </svg>
-            </div>
-            <div className="what-corner"></div>
-            <div className="what-content-in">
-              <h3>BACKEND</h3>
-              <h4>Description</h4>
-              <p>
-                Designing secure, scalable, and efficient systems that power modern applications.
-              </p>
-              <h5>Skillset & tools</h5>
-              <div className="what-content-flex">
-                <div className="what-tags">Node.js</div>
-                <div className="what-tags">Express.js</div>
-                <div className="what-tags">MongoDB</div>
-                <div className="what-tags">SQL</div>
-                <div className="what-tags">JWT</div>
-                <div className="what-tags">RBAC</div>
-                <div className="what-tags">Postman</div>
-                <div className="what-tags">SpringBoot</div>
-                <div className="what-tags">REST Apis</div>
+              <div className="what-corner"></div>
+              <div className="what-content-in">
+                <h3>{item.title}</h3>
+                <h4>Description</h4>
+                <p>{item.description}</p>
+                <h5>Skillset & tools</h5>
+                <div className="what-content-flex">
+                  {item.skills.split(",").map((s) => (
+                    <div key={s.trim()} className="what-tags">{s.trim()}</div>
+                  ))}
+                </div>
+                <div className="what-arrow"></div>
               </div>
-              <div className="what-arrow"></div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
