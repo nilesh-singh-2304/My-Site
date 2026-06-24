@@ -1,0 +1,59 @@
+/* Spans across both techstack + icon-cloud sections */
+.walker-track {
+  position: relative;
+  width: 100%;
+  height: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.walking-character {
+  position: absolute;
+  bottom: 70px;
+  left: -80px;
+  width: 80px;
+  height: 130px;
+  pointer-events: none;
+  will-change: left;
+}
+
+.walker-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.leg-left {
+  transform-origin: 30px 65px;
+  animation: leg-l 0.4s ease-in-out infinite alternate;
+}
+.leg-right {
+  transform-origin: 30px 65px;
+  animation: leg-r 0.4s ease-in-out infinite alternate;
+}
+.arm-left {
+  transform-origin: 30px 38px;
+  animation: arm-l 0.4s ease-in-out infinite alternate;
+}
+
+@keyframes leg-l {
+  from { transform: rotate(-22deg); }
+  to   { transform: rotate(22deg); }
+}
+@keyframes leg-r {
+  from { transform: rotate(22deg); }
+  to   { transform: rotate(-22deg); }
+}
+@keyframes arm-l {
+  from { transform: rotate(18deg); }
+  to   { transform: rotate(-18deg); }
+}
+
+.speech-bubble {
+  animation: bubble-bob 2s ease-in-out infinite;
+}
+
+@keyframes bubble-bob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-4px); }
+}

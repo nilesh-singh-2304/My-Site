@@ -1,0 +1,34 @@
+.icon-cloud-section {
+  width: 100%;
+  position: relative;
+  height: var(--vh);
+  margin-top: 50px;
+  margin-bottom: -100px;
+}
+
+.icon-cloud-section h2 {
+  font-size: 80px;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  top: 120px;
+  left: 0;
+  font-weight: 400;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.icon-cloud-canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@media screen and (max-width: 900px) {
+  .icon-cloud-section h2 {
+    font-size: 40px;
+  }
+}
+
+.icon-cloud-section .ts-see-all-btn {
+  bottom: 60px;
+}
